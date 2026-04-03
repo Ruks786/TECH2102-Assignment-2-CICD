@@ -40,7 +40,7 @@ pipeline {
         stage('Deploy') {
             agent {
                 docker {
-                    image 'node:22.17.1-alpine'
+                    image 'node:22.17.1'
                     reuseNode true
                 }
             }
@@ -48,6 +48,7 @@ pipeline {
                 sh '''
                 npm install netlify-cli
                 npx netlify --version
+
                 echo "Deploying to netlify..."
 
                 npx netlify deploy \
@@ -55,7 +56,7 @@ pipeline {
             --prod \
             --site=$NETLIFY_SITE_ID \
             --auth=$NETLIFY_AUTH_TOKEN \
-                '''
+            '''
             }
         }
     }
